@@ -1,4 +1,4 @@
-package com.example.command_service.core.events;
+package com.example.common.serialization;
 
 import java.util.HashMap;
 import java.util.Map;

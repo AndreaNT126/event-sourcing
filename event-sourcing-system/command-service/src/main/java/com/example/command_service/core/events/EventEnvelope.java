@@ -1,8 +1,8 @@
 package com.example.command_service.core.events;
 
 import com.eventstore.dbclient.ResolvedEvent;
-import com.example.command_service.core.serialization.EventSerializer;
 import com.example.common.event.EventMetadata;
+import com.example.common.serialization.EventSerializer;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.ResolvableTypeProvider;
 

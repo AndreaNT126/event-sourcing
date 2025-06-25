@@ -3,15 +3,10 @@ package com.example.command_service.api.request;
 
 public final class AuthenticationRequest {
 
-    public record Login(
-            String email,
-            String password
-    ) { }
-
     public record Register(
         String fullName,
-        String password,
-        String email
+        String email,
+        String password
     ) { }
 
     public record updateProfile(

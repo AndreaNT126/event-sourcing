@@ -1,7 +1,7 @@
 package com.example.command_service.core.subscriptions;
 
 import com.eventstore.dbclient.*;
-import com.example.command_service.core.serialization.EventSerializer;
+import com.example.common.serialization.EventSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

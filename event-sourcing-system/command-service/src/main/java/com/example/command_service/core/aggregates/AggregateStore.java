@@ -2,7 +2,7 @@ package com.example.command_service.core.aggregates;
 
 import com.eventstore.dbclient.*;
 import com.example.command_service.core.http.ETag;
-import com.example.command_service.core.serialization.EventSerializer;
+import com.example.common.serialization.EventSerializer;
 
 import java.util.Arrays;
 import java.util.List;

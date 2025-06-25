@@ -2,6 +2,7 @@ package com.example.command_service.core.http;
 
 import com.eventstore.dbclient.StreamNotFoundException;
 import com.eventstore.dbclient.WrongExpectedVersionException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,10 +16,10 @@ public class GlobalExceptionHandler {
     return ResponseEntity.badRequest().build();
   }
 
-//  @ExceptionHandler(value = EntityNotFoundException.class)
-//  public ResponseEntity<Void> entityNotFoundException(EntityNotFoundException ignored) {
-//    return ResponseEntity.notFound().build();
-//  }
+  @ExceptionHandler(value = EntityNotFoundException.class)
+  public ResponseEntity<Void> entityNotFoundException(EntityNotFoundException ignored) {
+    return ResponseEntity.notFound().build();
+  }
 
   @ExceptionHandler(value = StreamNotFoundException.class)
   public ResponseEntity<Void> streamNotFoundException(StreamNotFoundException ignored) {

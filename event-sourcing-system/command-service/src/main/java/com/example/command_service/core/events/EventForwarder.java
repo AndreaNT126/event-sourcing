@@ -1,13 +1,11 @@
 package com.example.command_service.core.events;
 
-import org.springframework.context.ApplicationEventPublisher;
-
 public record EventForwarder(
-        ApplicationEventPublisher applicationEventPublisher
+    KafkaProducerService kafkaProducerService
 ) implements EventBus {
 
     @Override
     public <Event> void publish(EventEnvelope<Event> event) {
-        applicationEventPublisher.publishEvent(event);
+        kafkaProducerService.sendEventToKafka("update-read-model",event.metadata().getEventId(),event.data());
     }
 }

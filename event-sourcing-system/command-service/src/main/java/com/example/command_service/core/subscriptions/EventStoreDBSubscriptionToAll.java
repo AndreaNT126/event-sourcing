@@ -3,7 +3,7 @@ package com.example.command_service.core.subscriptions;
 import com.eventstore.dbclient.*;
 import com.example.command_service.core.events.EventBus;
 import com.example.command_service.core.events.EventEnvelope;
-import com.example.command_service.core.events.EventTypeMapper;
+import com.example.common.serialization.EventTypeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.retry.support.RetryTemplate;
@@ -34,7 +34,8 @@ public class EventStoreDBSubscriptionToAll {
       }
     }
 
-    public void onError(Subscription subscription, Throwable throwable) {
+    @Override
+    public void onCancelled(Subscription subscription, Throwable throwable) {
       logger.error("Subscription was dropped", throwable);
 
       throw new RuntimeException(throwable);

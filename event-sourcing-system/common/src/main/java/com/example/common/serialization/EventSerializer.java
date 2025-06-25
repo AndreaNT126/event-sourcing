@@ -1,9 +1,8 @@
-package com.example.command_service.core.serialization;
+package com.example.common.serialization;
 
 import com.eventstore.dbclient.EventData;
 import com.eventstore.dbclient.EventDataBuilder;
 import com.eventstore.dbclient.ResolvedEvent;
-import com.example.command_service.core.events.EventTypeMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

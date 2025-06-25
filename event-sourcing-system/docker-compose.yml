@@ -1,0 +1,91 @@
+version: "3"
+services:
+
+  #######################################################
+  #  EventStoreDB - Event Store
+  #######################################################
+  eventstore.db:
+    image: eventstore/eventstore:24.10.5-bookworm-slim
+    platform: linux/amd64
+    environment:
+      - EVENTSTORE_CLUSTER_SIZE=1
+      - EVENTSTORE_RUN_PROJECTIONS=All
+      - EVENTSTORE_START_STANDARD_PROJECTIONS=true
+      - EVENTSTORE_HTTP_PORT=2113
+      - EVENTSTORE_INSECURE=true
+      - EVENTSTORE_ENABLE_ATOM_PUB_OVER_HTTP=true
+    ports:
+      - '1113:1113'
+      - '2113:2113'
+    volumes:
+      - type: volume
+        source: eventstore-volume-data
+        target: /var/lib/eventstore
+      - type: volume
+        source: eventstore-volume-logs
+        target: /var/log/eventstore
+    networks:
+      - eventstore.db
+
+  #######################################################
+  # Kafka Ecosystem
+  #######################################################
+
+  # ZooKeeper - Bắt buộc cho Kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0 # Phiên bản ổn định của Confluent
+    hostname: zookeeper
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - app-network
+
+  # Kafka Broker
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0 # Phiên bản ổn định của Confluent
+    hostname: kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+      - "9093:9093" # Port nội bộ cho các container trong Docker network
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 # Kết nối đến ZooKeeper
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9093,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    depends_on:
+      - zookeeper # Kafka phụ thuộc vào ZooKeeper
+    networks:
+      - app-network
+
+  # Kafka UI (tùy chọn nhưng rất hữu ích để quản lý Kafka)
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest # Phiên bản mới nhất của Kafka UI
+    container_name: kafka-ui
+    ports:
+      - "8080:8080" # Cổng để truy cập Kafka UI từ trình duyệt
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local-kafka # Tên hiển thị trong UI
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9093 # Địa chỉ của Kafka Broker (sử dụng internal Docker network)
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181 # Địa chỉ của ZooKeeper (internal Docker network)
+    depends_on:
+      - kafka # Kafka UI phụ thuộc vào Kafka
+    networks:
+      - app-network
+networks:
+  eventstore.db:
+    driver: bridge
+  app-network:
+    driver: bridge
+
+volumes:
+  eventstore-volume-data:
+  eventstore-volume-logs:
+  zookeeper-data:
+  kafka-data:
