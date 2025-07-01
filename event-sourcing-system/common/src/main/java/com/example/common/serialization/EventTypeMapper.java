@@ -13,7 +13,7 @@ public final class EventTypeMapper {
   public static String toName(Class eventType) {
     return Instance.typeNameMap.computeIfAbsent(
       eventType,
-      c -> c.getTypeName().replace(".", "_")
+      c -> c.getTypeName().replace(".", "/")
     );
   }
 
@@ -22,7 +22,7 @@ public final class EventTypeMapper {
       eventTypeName,
       c -> {
         try {
-          return Optional.of(Class.forName(eventTypeName.replace("_", ".")));
+          return Optional.of(Class.forName(eventTypeName.replace("/", ".")));
         } catch (ClassNotFoundException e) {
             return Optional.empty();
         }

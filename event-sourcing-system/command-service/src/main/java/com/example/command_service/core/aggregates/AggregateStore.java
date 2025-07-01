@@ -89,7 +89,8 @@ public class AggregateStore<Entity extends AbstractAggregate<Event, Id>, Event, 
   }
 
   public ETag appendEvents(Entity entity, AppendToStreamOptions appendOptions) {
-    var streamId = mapToStreamId.apply(entity.id());
+    var id = entity.id();
+    var streamId = mapToStreamId.apply(id);
     var events = Arrays.stream(entity.dequeueUncommittedEvents())
       .map(event -> EventSerializer.serialize(event));
 

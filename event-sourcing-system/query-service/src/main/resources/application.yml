@@ -6,7 +6,7 @@ spring:
       # Phương thức serialize key của message
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       # Phương thức serialize value của message
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer # Hoặc StringSerializer, ByteArraySerializer tùy dữ liệu
+      value-serializer: org.apache.kafka.common.serialization.StringDeserializer # Hoặc StringSerializer, ByteArraySerializer tùy dữ liệu
       acks: 1
       batch-size: 16384 # bytes
       linger-ms: 10 # milliseconds
@@ -14,12 +14,18 @@ spring:
     # 2. Cấu hình Consumer (để nhận tin nhắn từ Kafka)
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: command-service-consumer-group # Đặt tên nhóm phù hợp với ứng dụng của bạn
+      group-id: command-service-consumer-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-offset-reset: latest
       enable-auto-commit: true
       auto-commit-interval-ms: 1000 # milliseconds
 
+    # 3. Cấu hình để connection với database
+    datasource:
+      url: jdbc:sqlserver://localhost:1433;databaseName=command-cv-management;encrypt=true;trustServerCertificate=true
+      username: An
+      password: 1
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 server:
-  port: 8081
+  port: 8082
