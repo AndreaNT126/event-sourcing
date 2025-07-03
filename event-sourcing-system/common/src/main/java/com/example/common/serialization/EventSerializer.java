@@ -3,6 +3,7 @@ package com.example.common.serialization;
 import com.eventstore.dbclient.EventData;
 import com.eventstore.dbclient.EventDataBuilder;
 import com.eventstore.dbclient.ResolvedEvent;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,6 +57,30 @@ public final class EventSerializer {
       return Optional.of(result);
     } catch (IOException e) {
       logger.warn("Error deserializing event %s".formatted(resolvedEvent.getEvent().getEventType()), e);
+      return Optional.empty();
+    }
+  }
+
+  public static <Event> Optional<Event> deserializeEvent( Object eventData,EventMetadata eventMetadata) {
+    var eventClass = EventTypeMapper.toClass(eventMetadata.getEventType());
+
+    if (eventClass.isEmpty())
+      return Optional.empty();
+
+    return deserializeEvent(eventClass.get(), eventData);
+  }
+
+  public static <Event> Optional<Event> deserializeEvent(Class<Event> eventClass, Object eventData) {
+    try {
+      var jsonParser = mapper.getFactory().createParser(mapper.writeValueAsString(eventData));
+      var result = mapper.readValue(jsonParser, eventClass);
+
+      if (result == null)
+        return Optional.empty();
+
+      return Optional.of(result);
+    } catch (IOException e) {
+      logger.warn("Error deserializing event %s".formatted(eventData.toString()), e);
       return Optional.empty();
     }
   }

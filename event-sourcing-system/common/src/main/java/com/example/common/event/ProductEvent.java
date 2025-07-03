@@ -1,4 +1,6 @@
-package com.example.command_service.product;
+package com.example.common.event;
+
+import com.example.common.dto.ProductInfo;
 
 import java.util.UUID;
 
@@ -10,6 +12,7 @@ public sealed interface ProductEvent {
     }
 
     record ProductEventUpdated(
+            UUID productId,
             ProductInfo productInfo
     ) implements ProductEvent {
     }

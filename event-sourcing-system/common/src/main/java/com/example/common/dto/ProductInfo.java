@@ -1,10 +1,11 @@
-package com.example.command_service.product;
+package com.example.common.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductInfo {
@@ -13,5 +14,5 @@ public class ProductInfo {
     private int quantity;
     private double price;
     private String imageUrl;
-    private String category;
+    private int category;
 }

@@ -3,10 +3,8 @@ spring:
     # 1. Cấu hình Producer (để gửi tin nhắn đến Kafka)
     producer:
       bootstrap-servers: localhost:9092
-      # Phương thức serialize key của message
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      # Phương thức serialize value của message
-      value-serializer: org.apache.kafka.common.serialization.StringDeserializer # Hoặc StringSerializer, ByteArraySerializer tùy dữ liệu
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       acks: 1
       batch-size: 16384 # bytes
       linger-ms: 10 # milliseconds
@@ -14,18 +12,31 @@ spring:
     # 2. Cấu hình Consumer (để nhận tin nhắn từ Kafka)
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: command-service-consumer-group
+      group-id: read-model-consumer-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
       auto-offset-reset: latest
       enable-auto-commit: true
-      auto-commit-interval-ms: 1000 # milliseconds
+      auto-commit-interval-ms: 1000
 
-    # 3. Cấu hình để connection với database
-    datasource:
-      url: jdbc:sqlserver://localhost:1433;databaseName=command-cv-management;encrypt=true;trustServerCertificate=true
-      username: An
-      password: 1
-      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  # 3. Cấu hình để connection với database
+  datasource:
+    url: jdbc:mysql://localhost:3306/read_model_db?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
 server:
   port: 8082

@@ -1,7 +1,8 @@
 package com.example.command_service.product;
 
 import com.example.command_service.core.aggregates.AbstractAggregate;
-import lombok.Builder;
+import com.example.common.dto.ProductInfo;
+import com.example.common.event.ProductEvent;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,9 +40,9 @@ public class Product extends AbstractAggregate<ProductEvent, UUID> {
         );
     }
 
-    void update(ProductInfo productInfo) {
+    void update(UUID id,ProductInfo productInfo) {
         enqueue(
-                new ProductEvent.ProductEventUpdated(productInfo)
+                new ProductEvent.ProductEventUpdated(id,productInfo)
         );
     }
 

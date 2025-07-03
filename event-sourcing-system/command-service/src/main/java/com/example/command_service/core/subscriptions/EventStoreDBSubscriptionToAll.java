@@ -3,6 +3,7 @@ package com.example.command_service.core.subscriptions;
 import com.eventstore.dbclient.*;
 import com.example.command_service.core.events.EventBus;
 import com.example.command_service.core.events.EventEnvelope;
+import com.example.common.serialization.EventEnvelopeDto;
 import com.example.common.serialization.EventTypeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,7 +124,7 @@ public class EventStoreDBSubscriptionToAll {
     }
 
     // publish event to internal event bus
-    eventBus.publish((EventEnvelope<?>) streamEvent.get());
+    eventBus.publish((EventEnvelopeDto<?>) streamEvent.get());
 
     checkpointRepository.store(
       this.subscriptionOptions.subscriptionId(),

@@ -1,18 +1,15 @@
 package com.example.command_service.core.events;
 
 import com.eventstore.dbclient.ResolvedEvent;
+import com.example.common.serialization.EventEnvelopeDto;
 import com.example.common.serialization.EventMetadata;
 import com.example.common.serialization.EventSerializer;
-import org.springframework.core.ResolvableType;
-import org.springframework.core.ResolvableTypeProvider;
 
 import java.util.Optional;
 
 public record EventEnvelope<Event>(
-        Event data,
-        EventMetadata metadata
-) implements ResolvableTypeProvider {
-    public static <Event> Optional<EventEnvelope<Event>> of(final Class<Event> type, ResolvedEvent resolvedEvent) {
+) {
+    public static <Event> Optional<EventEnvelopeDto<Event>> of(final Class<Event> type, ResolvedEvent resolvedEvent) {
         if (type == null)
             return Optional.empty();
 
@@ -22,7 +19,7 @@ public record EventEnvelope<Event>(
             return Optional.empty();
 
         return Optional.of(
-                new EventEnvelope<>(
+                new EventEnvelopeDto<>(
                         eventData.get(),
                         new EventMetadata(
                                 resolvedEvent.getEvent().getEventId().toString(),
@@ -31,13 +28,6 @@ public record EventEnvelope<Event>(
                                 resolvedEvent.getEvent().getEventType()
                         )
                 )
-        );
-    }
-
-    @Override
-    public ResolvableType getResolvableType() {
-        return ResolvableType.forClassWithGenerics(
-                getClass(), ResolvableType.forInstance(data)
         );
     }
 }

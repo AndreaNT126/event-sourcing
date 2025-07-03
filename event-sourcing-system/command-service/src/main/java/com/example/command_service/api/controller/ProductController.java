@@ -4,7 +4,6 @@ import com.example.command_service.api.request.ProductRequest;
 import com.example.command_service.core.http.ETag;
 import com.example.command_service.product.ProductService;
 import jakarta.validation.constraints.NotNull;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

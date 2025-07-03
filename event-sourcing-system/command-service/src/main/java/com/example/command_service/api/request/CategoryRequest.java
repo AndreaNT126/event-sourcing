@@ -5,17 +5,15 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public class ProductRequest {
-
-    public record ProductCreated(
-            @NotNull ProductInfo productInfo
+public class CategoryRequest {
+    public record CategoryCreated(
+            @NotNull String name
     ) {
     }
 
-    public record ProductUpdated(
+    public record CategoryUpdated(
             @NotNull UUID productId,
-            @NotNull ProductInfo productInfo
+            @NotNull String name
     ) {
     }
-
 }
