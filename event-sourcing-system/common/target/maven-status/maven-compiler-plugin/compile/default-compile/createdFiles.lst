@@ -1,0 +1,15 @@
+com\example\common\dto\ProductInfo.class
+com\example\common\serialization\EventMetadata.class
+com\example\common\config\CoreConfig.class
+com\example\common\event\CategoryEvent$CategoryEventDeleted.class
+com\example\common\event\CategoryEvent$CategoryEventCreated.class
+com\example\common\event\ProductEvent.class
+com\example\common\serialization\EventSerializer.class
+com\example\common\event\CategoryEvent$CategoryEventUpdated.class
+com\example\common\event\ProductEvent$ProductEventUpdated.class
+com\example\common\event\ProductEvent$ProductEventCreated.class
+com\example\common\serialization\EventTypeMapper.class
+com\example\common\event\CategoryEvent.class
+com\example\common\event\ProductEvent$ProductEventDeleted.class
+com\example\common\serialization\EventEnvelopeDto$EventEnvelopeDtoBuilder.class
+com\example\common\serialization\EventEnvelopeDto.class

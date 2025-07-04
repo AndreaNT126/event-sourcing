@@ -1,0 +1,8 @@
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\config\CoreConfig.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\dto\ProductInfo.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\event\CategoryEvent.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\event\ProductEvent.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\serialization\EventEnvelopeDto.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\serialization\EventMetadata.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\serialization\EventSerializer.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\serialization\EventTypeMapper.java
