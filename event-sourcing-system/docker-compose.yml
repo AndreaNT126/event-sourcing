@@ -78,6 +78,17 @@ services:
       - kafka # Kafka UI phụ thuộc vào Kafka
     networks:
       - app-network
+
+    #######################################################
+
+  common:
+    build:
+      context: ./common
+      dockerfile: Dockerfile
+    container_name: common-lib-container
+    volumes:
+      - ./target:/app
+
 networks:
   eventstore.db:
     driver: bridge

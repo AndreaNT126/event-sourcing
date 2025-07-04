@@ -15,7 +15,7 @@ public class CategoryConfig {
 
     @Bean
     @ApplicationScope
-    AggregateStore<Category, CategoryEvent, UUID> shoppingCartStore(EventStoreDBClient eventStore) {
+    AggregateStore<Category, CategoryEvent, UUID> categoryStore(EventStoreDBClient eventStore) {
         return new AggregateStore<>(
                 eventStore,
                 Category::mapToStreamId,

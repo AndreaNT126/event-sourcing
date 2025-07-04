@@ -1,5 +1,6 @@
 package com.example.query_service.read_model;
 
+import com.example.common.event.CategoryEvent;
 import com.example.common.event.ProductEvent;
 import com.example.common.serialization.EventEnvelopeDto;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ public class ReadModelConsumer {
     private KafkaTemplate<String, Object> kafkaTemplate;
     @Autowired
     private ProductWriteService productWriteService;
+    @Autowired
+    private CategoryWriteService categoryWriteService;
 
     @KafkaListener(topics = "update-read-model", groupId = "read-model-consumer-group")
     public void listen(EventEnvelopeDto<?> event){
@@ -33,6 +36,7 @@ public class ReadModelConsumer {
         }
         switch (data.get()) {
             case ProductEvent e -> processProductEvent(e);
+            case CategoryEvent e -> processCategoryEvent(e);
             default -> System.out.println("Received unsupported event type: " + data.get().getClass().getSimpleName());
         }
 
@@ -51,4 +55,17 @@ public class ReadModelConsumer {
             System.out.println("Received unsupported ProductEvent type: " + data.getClass().getSimpleName());
         }
     }
+
+    private void processCategoryEvent(CategoryEvent data) {
+        if (data instanceof CategoryEvent.CategoryEventCreated created) {
+            categoryWriteService.save(created.categoryId(),created.name());
+        } else if (data instanceof CategoryEvent.CategoryEventUpdated updated) {
+            categoryWriteService.update(updated.categoryId(),updated.name());
+        } else if (data instanceof CategoryEvent.CategoryEventDeleted deleted) {
+            categoryWriteService.delete(deleted.categoryId());
+        } else {
+            System.out.println("Received unsupported CategoryEvent type: " + data.getClass().getSimpleName());
+        }
+    }
+
 }

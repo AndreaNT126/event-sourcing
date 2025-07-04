@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Validated
 @RestController
-@RequestMapping("/v1/categories")
+    @RequestMapping("/v1/categories")
 public class CategoryController {
 
     @Autowired
