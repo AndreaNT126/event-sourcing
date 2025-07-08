@@ -1,6 +1,6 @@
 package com.example.command_service.api.request;
 
-import com.example.common.dto.ProductInfo;
+import com.example.common.dto.product.ProductInfo;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;

@@ -1,5 +1,7 @@
 E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\config\CoreConfig.java
-E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\dto\ProductInfo.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\dto\ApiResponse.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\dto\PageResponse.java
+E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\dto\product\ProductInfo.java
 E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\event\CategoryEvent.java
 E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\event\ProductEvent.java
 E:\workspace\event-sourcing\event-sourcing-system\common\src\main\java\com\example\common\serialization\EventEnvelopeDto.java

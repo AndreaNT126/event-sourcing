@@ -1,6 +1,3 @@
-FROM openjdk:21-jdk-slim
-
-WORKDIR /app
-# Sao chép file JAR từ thư mục target
-# run mvn clean package để tạo file JAR
-COPY target/common-1.0.0.jar /app/common.jar
+FROM maven:3.9.9-eclipse-temurin-22-jammy AS builder
+#WORKDIR /app
+RUN mvn clean deploy -DskipTests

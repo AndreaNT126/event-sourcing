@@ -1,25 +1,3 @@
 spring:
-  kafka:
-    # 1. Cấu hình Producer (để gửi tin nhắn đến Kafka)
-    producer:
-      bootstrap-servers: localhost:9092
-      # Phương thức serialize key của message
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      # Phương thức serialize value của message
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer # Hoặc StringSerializer, ByteArraySerializer tùy dữ liệu
-      acks: 1
-      batch-size: 16384 # bytes
-      linger-ms: 10 # milliseconds
-
-    # 2. Cấu hình Consumer (để nhận tin nhắn từ Kafka)
-    consumer:
-      bootstrap-servers: localhost:9092
-      group-id: command-service-consumer-group # Đặt tên nhóm phù hợp với ứng dụng của bạn
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      auto-offset-reset: latest
-      enable-auto-commit: true
-      auto-commit-interval-ms: 1000 # milliseconds
-
-server:
-  port: 8081
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}

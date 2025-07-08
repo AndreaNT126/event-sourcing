@@ -1,7 +1,7 @@
 package com.example.command_service.product;
 
 import com.example.command_service.core.aggregates.AbstractAggregate;
-import com.example.common.dto.ProductInfo;
+import com.example.common.dto.product.ProductInfo;
 import com.example.common.event.ProductEvent;
 import lombok.Getter;
 import lombok.Setter;

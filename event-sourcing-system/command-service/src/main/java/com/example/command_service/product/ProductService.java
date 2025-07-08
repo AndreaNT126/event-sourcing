@@ -3,7 +3,7 @@ package com.example.command_service.product;
 import com.example.command_service.core.aggregates.AggregateStore;
 import com.example.command_service.core.http.ETag;
 import com.example.command_service.price.ProductPriceCalculator;
-import com.example.common.dto.ProductInfo;
+import com.example.common.dto.product.ProductInfo;
 import com.example.common.event.ProductEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.example.common.event;
 
-import com.example.common.dto.ProductInfo;
+import com.example.common.dto.product.ProductInfo;
 
 import java.util.UUID;
 
